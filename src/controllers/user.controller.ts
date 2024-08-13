@@ -53,8 +53,18 @@ export class UserController implements IUserController {
   @ApiOperation({ summary: 'Excluir um usuário pelo ID' })
   @ApiResponse(GlobalDocs.User.RESPONSE_DELETE)
   @ApiResponse(GlobalDocs.NOT_FOUND)
-  @ApiResponse({ status: 403, description: 'Proibido.' })
+  @ApiResponse(GlobalDocs.FORBIDDEN)
   async remove(@Param('id') id: number): Promise<void> {
     return this.userService.remove(id);
+  }
+
+  @Get('/email-validation/:email')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @ApiOperation({ summary: 'Verificar se email está cadastrado' })
+  @ApiResponse(GlobalDocs.User.RESPONSE_DELETE)
+  @ApiResponse(GlobalDocs.CONFLICT)
+  @ApiResponse(GlobalDocs.FORBIDDEN)
+  async checkEmail(@Param('email') email: string): Promise<void> {
+    this.userService.checkEmail(email);
   }
 }

@@ -17,4 +17,7 @@ export abstract class IUserService implements IBaseService<CreateUserRequest, Cr
     remove(id: number): Promise<void> {
         throw new Error("Method not implemented.");
     }
+    checkEmail(email: string): Promise<void> {
+        throw new Error("Method not implemented.");
+    }
 }

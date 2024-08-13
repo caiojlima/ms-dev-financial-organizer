@@ -2,12 +2,12 @@ version: '3.3'
 services:
   db:
     container_name: fin-org-db
-    image: mysql:5.7
+    image: mysql:8.0
     restart: always
     env_file: ".env"
     environment:
       MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
-      MYSQL_ROOT_HOST: ${DB_HOST}
+      MYSQL_ROOT_HOST: '${DB_HOST}'
       MYSQL_DATABASE: '${DB_DATABASE}'
       MYSQL_PASSWORD: '${DB_PASSWORD}'
       MYSQL_ALLOW_EMPTY_PASSWORD: 1
@@ -16,8 +16,8 @@ services:
     expose:
       - '${DB_PORT}'
     volumes:
-      - my-db:/var/lib/mysql
-      - ./database:/docker-entrypoint-initdb.d
+      - /my-db:/var/lib/mysql
+      - ./migrations:/docker-entrypoint-initdb.d
 
   backend:
     container_name: fin-org-backend

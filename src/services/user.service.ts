@@ -15,9 +15,7 @@ export class UserService implements IUserService {
   ) {}
 
   async create(userDto: CreateUserRequest): Promise<CreateUserResponse> {
-    const isNotValidEmail = await this.userRepository.exists({ where: { email: userDto.email } });
-    
-    if (isNotValidEmail) throw new ConflictException("Email já cadastrado!")
+    this.checkEmail(userDto.email)
 
     const userEntity = this.userRepository.create(userDto);
 
@@ -56,5 +54,11 @@ export class UserService implements IUserService {
     if (!user) throw new NotFoundException('Usuário não encontrado');
     
     await this.userRepository.delete(id);
+  }
+
+  async checkEmail(email: string): Promise<void> {
+    const isNotValidEmail = await this.userRepository.exists({ where: { email } });
+    
+    if (isNotValidEmail) throw new ConflictException("Email já cadastrado!");
   }
 }
