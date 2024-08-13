@@ -1,3 +1,4 @@
+import { ApiResponseOptions } from "@nestjs/swagger";
 import { CreateWalletRequest, CreateWalletResponse } from "../dtos";
 
 export class WalletDocs {
@@ -40,7 +41,7 @@ export class WalletDocs {
   public static readonly RESPONSE_GET_ALL = {
     status: 200,
     description: 'Retorna todas as carteiras.',
-    type: Array<CreateWalletResponse>,
+    type: [CreateWalletResponse],
     example: [
       {
         id: 1,
@@ -73,7 +74,7 @@ export class WalletDocs {
         updatedAt: '2024-08-14T10:00:00Z',
       },
     ],
-  }
+  } as ApiResponseOptions;
 
   public static readonly RESPONSE_GET_BY_ID = {
     status: 200,

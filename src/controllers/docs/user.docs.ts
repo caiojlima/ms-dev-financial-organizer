@@ -1,3 +1,4 @@
+import { ApiResponseOptions } from "@nestjs/swagger"
 import { CreateUserRequest, CreateUserResponse } from "../dtos"
 
 export class UserDocs {
@@ -31,7 +32,7 @@ export class UserDocs {
 	public static readonly RESPONSE_GET_ALL = {
     status: 200,
     description: 'Retorna todos os usuários.',
-    type: Array<CreateUserResponse>,
+    type: [CreateUserResponse],
     example: [
       {
         id: 1,
@@ -76,7 +77,7 @@ export class UserDocs {
         updatedAt: '2024-08-14T10:00:00Z',
       },
     ],
-	}
+	} as ApiResponseOptions;
 
 	public static readonly RESPONSE_GET_BY_ID = {
     status: 200,

@@ -16,6 +16,7 @@ export class UserController implements IUserController {
   @ApiBody(GlobalDocs.User.REQUEST_BODY_POST)
   @ApiResponse(GlobalDocs.User.RESPONSE_POST)
   @ApiResponse(GlobalDocs.FORBIDDEN)
+  @ApiResponse(GlobalDocs.CONFLICT)
   async create(@Body() userDto: CreateUserRequest): Promise<CreateUserResponse> {
     return this.userService.create(userDto);
   }
