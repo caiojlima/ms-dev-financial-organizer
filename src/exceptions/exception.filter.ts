@@ -6,6 +6,8 @@ export class ExceptionsFilter implements ExceptionsFilter {
     constructor(private readonly httpAdapter: AbstractHttpAdapter) {}
 
     catch(exception: unknown, host: ArgumentsHost): void {
+        console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+
         const ctx = host.switchToHttp();
         const httpStatus =
             exception instanceof HttpException
@@ -18,7 +20,8 @@ export class ExceptionsFilter implements ExceptionsFilter {
             timestamp: new Date().toISOString(),
             path: this.httpAdapter.getRequestUrl(ctx.getRequest())
         }
-
+        console.log('aq');
+        
         this.httpAdapter.reply(ctx.getResponse(), responseBody, httpStatus)
     }
 }

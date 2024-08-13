@@ -65,6 +65,6 @@ export class UserController implements IUserController {
   @ApiResponse(GlobalDocs.CONFLICT)
   @ApiResponse(GlobalDocs.FORBIDDEN)
   async checkEmail(@Param('email') email: string): Promise<void> {
-    this.userService.checkEmail(email);
+    await this.userService.checkEmail(email);
   }
 }

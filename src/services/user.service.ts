@@ -15,7 +15,7 @@ export class UserService implements IUserService {
   ) {}
 
   async create(userDto: CreateUserRequest): Promise<CreateUserResponse> {
-    this.checkEmail(userDto.email)
+    await this.checkEmail(userDto.email)
 
     const userEntity = this.userRepository.create(userDto);
 
