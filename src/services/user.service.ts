@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { ConflictException, Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { CreateUserRequest, CreateUserResponse } from "src/controllers/dtos";
@@ -15,8 +15,13 @@ export class UserService implements IUserService {
   ) {}
 
   async create(userDto: CreateUserRequest): Promise<CreateUserResponse> {
-    const user = this.userRepository.create(userDto);
-    const newUser = await this.userRepository.save(user);
+    const isNotValidEmail = await this.userRepository.exists({ where: { email: userDto.email } });
+    
+    if (isNotValidEmail) throw new ConflictException("Email já cadastrado!")
+
+    const userEntity = this.userRepository.create(userDto);
+
+    const newUser = await this.userRepository.save(userEntity);
     
     return this.mapper.fromEntity(newUser);
   }
@@ -29,18 +34,17 @@ export class UserService implements IUserService {
 
   async findOne(id: number): Promise<CreateUserResponse> {
     const user = await this.userRepository.findOne({ where: {id}, relations: ['wallets'] });
-    if (!user) {
-      throw new Error('Usuário não encontrado');
-    }
+
+    if (!user) throw new NotFoundException('Usuário não encontrado');
     
     return this.mapper.fromEntity(user);
   }
 
   async update(id: number, userDto: CreateUserRequest): Promise<CreateUserResponse> {
     const user = await this.userRepository.findOneBy({ id });
-    if (!user) {
-      throw new Error('Usuário não encontrado');
-    }
+
+    if (!user) throw new NotFoundException('Usuário não encontrado');
+
     const newUser = await this.userRepository.save({ ...user, ...userDto});
     
     return this.mapper.fromEntity(newUser);
@@ -48,9 +52,8 @@ export class UserService implements IUserService {
 
   async remove(id: number): Promise<void> {
     const user = await this.userRepository.findOneBy({ id });
-    if (!user) {
-      throw new Error('Usuário não encontrado');
-    }
+
+    if (!user) throw new NotFoundException('Usuário não encontrado');
     
     await this.userRepository.delete(id);
   }

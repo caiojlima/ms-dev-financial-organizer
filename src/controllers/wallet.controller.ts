@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Get, Param, Put, Delete, HttpCode } from "@nestjs/common";
+import { Controller, Post, Body, Get, Param, Put, Delete, HttpCode, HttpStatus } from "@nestjs/common";
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { IWalletController } from "./interfaces/wallet-controller.interface";
 import { CreateWalletRequest, CreateWalletResponse } from "./dtos";
@@ -158,7 +158,7 @@ export class WalletController implements IWalletController {
   }
 
   @Delete(':id')
-  @HttpCode(204)
+  @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({ summary: 'Excluir uma carteira pelo ID' })
   @ApiResponse({
     status: 204,

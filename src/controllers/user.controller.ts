@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Get, Param, Put, Delete, HttpCode } from "@nestjs/common";
+import { Controller, Post, Body, Get, Param, Put, Delete, HttpCode, HttpStatus } from "@nestjs/common";
 import { ApiOperation, ApiBody, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { IUserController } from "./interfaces/user-controller.interface";
 import { CreateUserRequest, CreateUserResponse } from "./dtos";
@@ -10,7 +10,7 @@ export class UserController implements IUserController {
   constructor(private readonly userService: IUserService) {}
 
   @Post()
-  @HttpCode(201)
+  @HttpCode(HttpStatus.CREATED)
   @ApiOperation({ summary: 'Cadastra novo usuário' })
   @ApiBody({
     type: CreateUserRequest,
@@ -170,7 +170,7 @@ export class UserController implements IUserController {
   }
 
   @Delete(':id')
-  @HttpCode(204)
+  @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({ summary: 'Excluir um usuário pelo ID' })
   @ApiResponse({
     status: 204,
@@ -180,8 +180,6 @@ export class UserController implements IUserController {
   @ApiResponse({ status: 404, description: 'Usuário não encontrado.' })
   @ApiResponse({ status: 403, description: 'Proibido.' })
   async remove(@Param('id') id: number): Promise<void> {
-    console.log(id);
-    
     return this.userService.remove(id);
   }
 }
