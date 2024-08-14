@@ -1,3 +1,4 @@
+import { AuthDocs } from "./auth.docs";
 import { UserDocs } from "./user.docs";
 import { WalletDocs } from "./wallet.docs";
 
@@ -7,11 +8,10 @@ export class GlobalDocs {
 		description:
 		'Forbidden',
 		example: {
-			"statusCode": 403,
-			"message": "Forbidden",
-			"timestamp": "2024-08-13T18:11:10.226Z",
-			"path": "/users"
-		}
+			"message": "Acesso negado",
+			"error": "Forbidden",
+			"statusCode": 403
+		  }
 	};
 
 	public static readonly NOT_FOUND = {
@@ -36,8 +36,21 @@ export class GlobalDocs {
 	  	}
 	};
 
+	public static readonly UNAUTHORIZED = {
+		status: 401,
+		description: 'Desautorizado',
+		example: {
+			message: "Id da entrada e do usuário não coincidem",
+			error: "Unauthorized",
+			statusCode: 401
+		}
+		
+	  }
+
 	public static readonly User = UserDocs;
 
 	public static readonly Wallet = WalletDocs;
+
+	public static readonly Auth = AuthDocs;
 
 }

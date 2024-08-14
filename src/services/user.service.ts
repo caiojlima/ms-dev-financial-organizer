@@ -5,6 +5,7 @@ import { CreateUserRequest, CreateUserResponse } from "src/controllers/dtos";
 import { User } from "src/models";
 import { IUserMapper } from "src/mappers/interfaces/user-mapper.interface";
 import { IUserService } from "./interfaces/user-service.interface";
+import * as bcrypt from 'bcryptjs';
 
 @Injectable()
 export class UserService implements IUserService {
@@ -17,7 +18,13 @@ export class UserService implements IUserService {
   async create(userDto: CreateUserRequest): Promise<CreateUserResponse> {
     await this.checkEmail(userDto.email)
 
-    const userEntity = this.userRepository.create(userDto);
+    const salt = await bcrypt.genSalt();
+    const hashedPassword = await bcrypt.hash(userDto.password, salt);
+
+    const userEntity = this.userRepository.create({
+      ...userDto,
+      password: hashedPassword,
+    });
 
     const newUser = await this.userRepository.save(userEntity);
     

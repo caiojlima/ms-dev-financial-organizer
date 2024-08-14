@@ -1,13 +1,15 @@
-import { Controller, Post, Body, Get, Param, Put, Delete, HttpCode, HttpStatus } from "@nestjs/common";
-import { ApiOperation, ApiBody, ApiResponse, ApiTags } from "@nestjs/swagger";
-import { IUserController } from "./interfaces/user-controller.interface";
+import { Controller, Post, Body, Get, Param, Put, Delete, HttpCode, HttpStatus, UseGuards } from "@nestjs/common";
+import { ApiOperation, ApiBody, ApiResponse, ApiTags, ApiBearerAuth } from "@nestjs/swagger";
 import { CreateUserRequest, CreateUserResponse } from "./dtos";
 import { IUserService } from "src/services/interfaces/user-service.interface";
 import { GlobalDocs } from "./docs";
+import { JwtAuthGuard } from "src/guards/jwt.guard";
+import { RolesGuard } from "src/guards/admin.guard";
+import { Roles } from "src/decorators/roles.decorator";
 
 @ApiTags('Users')
 @Controller('users')
-export class UserController implements IUserController {
+export class UserController {
   constructor(private readonly userService: IUserService) {}
 
   @Post()
@@ -22,6 +24,9 @@ export class UserController implements IUserController {
   }
 
   @Get()
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('admin')
+  @ApiBearerAuth()
   @ApiOperation({ summary: 'Obter todos os usuários' })
   @ApiResponse(GlobalDocs.User.RESPONSE_GET_ALL)
   @ApiResponse(GlobalDocs.FORBIDDEN)
@@ -30,6 +35,9 @@ export class UserController implements IUserController {
   }
 
   @Get(':id')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('admin')
+  @ApiBearerAuth()
   @ApiOperation({ summary: 'Obter um usuário pelo ID' })
   @ApiResponse(GlobalDocs.User.RESPONSE_GET_BY_ID)
   @ApiResponse(GlobalDocs.NOT_FOUND)
@@ -39,16 +47,22 @@ export class UserController implements IUserController {
   }
 
   @Put(':id')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ApiOperation({ summary: 'Atualizar um usuário pelo ID' })
   @ApiBody(GlobalDocs.User.REQUEST_PUT)
   @ApiResponse(GlobalDocs.User.RESPONSE_PUT)
   @ApiResponse(GlobalDocs.NOT_FOUND)
   @ApiResponse(GlobalDocs.FORBIDDEN)
+  @ApiResponse(GlobalDocs.UNAUTHORIZED)
   async update(@Param('id') id: number, @Body() userDto: CreateUserRequest): Promise<CreateUserResponse> {
     return this.userService.update(id, userDto);
   }
 
   @Delete(':id')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles('admin')
+  @ApiBearerAuth()
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({ summary: 'Excluir um usuário pelo ID' })
   @ApiResponse(GlobalDocs.User.RESPONSE_DELETE)

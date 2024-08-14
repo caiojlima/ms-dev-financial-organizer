@@ -11,7 +11,6 @@ export class WalletDocs {
           description: 'Carteira de gastos pessoais',
           value: 150.75,
           paymentMethod: 'Cartão de crédito',
-          userId: 1,
         },
       },
     },
@@ -105,8 +104,7 @@ export class WalletDocs {
         value: {
           description: 'Carteira de viagem atualizada',
           value: 550.00,
-          paymentMethod: 'Dinheiro',
-          userId: 1,
+          paymentMethod: 'Dinheiro'
         },
       },
     },
@@ -117,12 +115,19 @@ export class WalletDocs {
     description: 'A carteira foi atualizada com sucesso.',
     type: CreateWalletResponse,
     example: {
-      id: 1,
-      description: 'Carteira de viagem atualizada',
-      value: 550.00,
-      paymentMethod: 'Dinheiro',
-      createdAt: '2024-08-13T10:00:00Z',
-      updatedAt: '2024-08-14T11:00:00Z',
+      "id": 54,
+      "description": "Carteira de viagem atualizada",
+      "value": 550,
+      "paymentMethod": "PIX",
+      "user": {
+        "id": 13,
+        "name": "João da Silva",
+        "email": "joao@example.com",
+        "createdAt": "2024-08-14T02:10:00.000Z",
+        "updatedAt": "2024-08-14T02:10:00.000Z"
+      },
+      "createdAt": "2024-08-14T03:11:56.000Z",
+      "updatedAt": "2024-08-14T03:21:56.000Z"
     },
   }
 

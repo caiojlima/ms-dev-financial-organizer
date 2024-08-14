@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, UnauthorizedException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { CreateWalletRequest, CreateWalletResponse } from "src/controllers/dtos";
@@ -16,8 +16,8 @@ export class WalletService implements IWalletService {
     private readonly mapper: IWalletMapper
   ) {}
 
-  async create(walletDto: CreateWalletRequest): Promise<CreateWalletResponse> {
-    const user = await this.userRepository.findOneBy({ id: walletDto.userId });
+  async create(walletDto: CreateWalletRequest, id: number): Promise<CreateWalletResponse> {
+    const user = await this.userRepository.findOneBy({ id });
     if (!user) {
       throw new Error('User not found');
     }
@@ -37,16 +37,25 @@ export class WalletService implements IWalletService {
     return this.mapper.fromEntity(wallet)
   }
 
-  async update(id: number, walletDto: CreateWalletRequest): Promise<CreateWalletResponse> {
-    const wallet = await this.walletRepository.findOneBy({ id })
+  async update(id: number, userId: number, walletDto: CreateWalletRequest): Promise<CreateWalletResponse> {
+    const wallet = await this.walletRepository.findOne({ where: { id }, relations: ['user'] })
+
+    console.log(wallet);
+    
 
     if (!wallet) throw new Error('Entrada não encontrada');
+
+    if (userId !== wallet.user.id) throw new UnauthorizedException('Id da entrada e do usuário não coincidem')
 
     const newWallet = await this.walletRepository.save({ ...wallet, ...walletDto });
     return this.mapper.fromEntity(newWallet)
   }
 
-  async remove(id: number): Promise<void> {
+  async remove(id: number, userId: number): Promise<void> {
+    const wallet = await this.walletRepository.findOne({ where: { id }, relations: ['user'] })
+    
+    if (userId !== wallet.user.id) throw new UnauthorizedException('Id da entrada e do usuário não coincidem')
+
     await this.walletRepository.delete(id);
   }
 }

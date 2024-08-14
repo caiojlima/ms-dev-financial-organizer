@@ -30,12 +30,4 @@ export class CreateWalletRequest {
   @MinLength(3, { message: 'O método de pagamento deve ter pelo menos 3 caracteres' })
   @MaxLength(50, { message: 'O método de pagamento pode ter no máximo 50 caracteres' })
   paymentMethod: string;
-
-  @ApiProperty({
-    description: 'O identificador do usuário associado à carteira',
-    example: 1,
-  })
-  @IsInt({ message: 'O identificador do usuário deve ser um número inteiro' })
-  @IsNotEmpty({ message: 'O identificador do usuário não pode ser vazio' })
-  userId: number;
 }
