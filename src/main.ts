@@ -12,6 +12,12 @@ async function bootstrap() {
     transform: true
   }))
 
+  app.enableCors({
+    origin: '*',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    allowedHeaders: 'Content-Type, Authorization',
+  });
+
   const config = new DocumentBuilder()
     .setTitle('Financial Organizer')
     .setDescription('Serviço de Controle de Carteira e Finanças')
