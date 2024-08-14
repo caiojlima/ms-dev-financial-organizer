@@ -1,11 +1,13 @@
-import { Controller, Post, Body, Get, Param, Put, Delete, HttpCode, HttpStatus, UseGuards, Req } from "@nestjs/common";
-import { ApiBearerAuth, ApiBody, ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
+import { Controller, Post, Body, Get, Param, Put, Delete, HttpCode, HttpStatus, UseGuards, Req, Query } from "@nestjs/common";
+import { ApiBearerAuth, ApiBody, ApiOperation, ApiQuery, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { CreateWalletRequest, CreateWalletResponse } from "./dtos";
 import { IWalletService } from "src/services/interfaces/wallet-service.interface";
 import { GlobalDocs } from "./docs";
 import { Roles } from "src/decorators/roles.decorator";
 import { RolesGuard } from "src/guards/admin.guard";
 import { JwtAuthGuard } from "src/guards/jwt.guard";
+import { query } from "express";
+import { WalletQuery } from "./dtos/wallet-query.dto";
 
 @ApiTags('Wallet')
 @Controller('wallet')
@@ -25,14 +27,25 @@ export class WalletController {
   }
 
   @Get()
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles('admin')
+  @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
+  @ApiQuery({
+    name: 'start',
+    required: false,
+    type: String,
+    description: 'Data de início para filtrar as carteiras'
+  })
+  @ApiQuery({
+    name: 'end',
+    required: false,
+    type: String,
+    description: 'Data de término para filtrar as carteiras'
+  })
   @ApiOperation({ summary: 'Obter todas as carteiras' })
   @ApiResponse(GlobalDocs.Wallet.RESPONSE_GET_ALL)
   @ApiResponse(GlobalDocs.FORBIDDEN)
-  async findAll(): Promise<CreateWalletResponse[]> {
-    return this.walletService.findAll();
+  async findAll(@Req() { user }: any, @Query() query: WalletQuery ): Promise<CreateWalletResponse[]> {
+    return this.walletService.findAll(user.sub, query);
   }
 
   @Get(':id')

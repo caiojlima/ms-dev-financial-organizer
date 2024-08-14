@@ -5,6 +5,8 @@ import { CreateWalletRequest, CreateWalletResponse } from "src/controllers/dtos"
 import { Wallet, User } from "src/models";
 import { IWalletService } from "./interfaces/wallet-service.interface";
 import { IWalletMapper } from "src/mappers/interfaces/wallet-mapper.interface";
+import { WalletQuery } from "src/controllers/dtos/wallet-query.dto";
+import { WalletCriteriaBuilder } from "src/builders/wallet-criteria.builder";
 
 @Injectable()
 export class WalletService implements IWalletService {
@@ -27,8 +29,10 @@ export class WalletService implements IWalletService {
     return this.mapper.fromEntity(newWallet)
   }
 
-  async findAll(): Promise<CreateWalletResponse[]> {
-    const wallets = await this.walletRepository.find({ relations: ['user'] });
+  async findAll(userId: number, query?: WalletQuery): Promise<CreateWalletResponse[]> {
+    const walletCriteriaBuilder = new WalletCriteriaBuilder({userId, ...query})
+    const where = walletCriteriaBuilder.build();
+    const wallets = await this.walletRepository.find({ where, relations: ['user'] });
     return wallets.map((wallet) => this.mapper.fromEntity(wallet))
   }
 
@@ -39,9 +43,6 @@ export class WalletService implements IWalletService {
 
   async update(id: number, userId: number, walletDto: CreateWalletRequest): Promise<CreateWalletResponse> {
     const wallet = await this.walletRepository.findOne({ where: { id }, relations: ['user'] })
-
-    console.log(wallet);
-    
 
     if (!wallet) throw new Error('Entrada não encontrada');
 
