@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Get, Param, Put, Delete, HttpCode, HttpStatus, UseGuards } from "@nestjs/common";
+import { Controller, Post, Body, Get, Param, Put, Delete, HttpCode, HttpStatus, UseGuards, Req } from "@nestjs/common";
 import { ApiOperation, ApiBody, ApiResponse, ApiTags, ApiBearerAuth } from "@nestjs/swagger";
 import { CreateUserRequest, CreateUserResponse } from "./dtos";
 import { IUserService } from "src/services/interfaces/user-service.interface";
@@ -35,15 +35,17 @@ export class UserController {
   }
 
   @Get(':id')
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles('admin')
+  @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Obter um usuário pelo ID' })
   @ApiResponse(GlobalDocs.User.RESPONSE_GET_BY_ID)
   @ApiResponse(GlobalDocs.NOT_FOUND)
   @ApiResponse(GlobalDocs.FORBIDDEN)
-  async findOne(@Param('id') id: number): Promise<CreateUserResponse> {
-    return this.userService.findOne(id);
+  @ApiResponse(GlobalDocs.UNAUTHORIZED)
+  async findOne(@Param('id') id: number, @Req() { user }: any): Promise<CreateUserResponse> {
+    console.log(user.sub);
+    
+    return this.userService.findOne(id, user.sub);
   }
 
   @Put(':id')

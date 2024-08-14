@@ -1,14 +1,13 @@
 import { CreateUserRequest, CreateUserResponse } from "src/controllers/dtos";
-import { IBaseService } from "./services.interface";
 
-export abstract class IUserService implements IBaseService<CreateUserRequest, CreateUserResponse> {
+export abstract class IUserService {
     create(dto: CreateUserRequest): Promise<CreateUserResponse> {
         throw new Error("Method not implemented.");
     }
     findAll(): Promise<CreateUserResponse[]> {
         throw new Error("Method not implemented.");
     }
-    findOne(id: number): Promise<CreateUserResponse> {
+    findOne(id: number, userId: number): Promise<CreateUserResponse> {
         throw new Error("Method not implemented.");
     }
     update(id: number, userDto: CreateUserRequest): Promise<CreateUserResponse> {

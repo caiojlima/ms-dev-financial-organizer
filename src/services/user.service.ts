@@ -1,4 +1,4 @@
-import { ConflictException, Injectable, NotFoundException } from "@nestjs/common";
+import { ConflictException, Injectable, NotFoundException, UnauthorizedException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { CreateUserRequest, CreateUserResponse } from "src/controllers/dtos";
@@ -37,7 +37,9 @@ export class UserService implements IUserService {
     return users.map((user) => this.mapper.fromEntity(user));
   }
 
-  async findOne(id: number): Promise<CreateUserResponse> {
+  async findOne(id: number, userId: number): Promise<CreateUserResponse> {
+    if (id !== userId) throw new UnauthorizedException('Id do usuário não coincide');
+
     const user = await this.userRepository.findOne({ where: {id}, relations: ['wallets'] });
 
     if (!user) throw new NotFoundException('Usuário não encontrado');
