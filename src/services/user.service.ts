@@ -70,4 +70,14 @@ export class UserService implements IUserService {
     
     if (isNotValidEmail) throw new ConflictException("Email já cadastrado!");
   }
+
+  async findByEmail(email: string): Promise<CreateUserResponse> {
+    const user = await this.userRepository.findOne({
+      where: { email },
+    });
+
+    if (!user) throw new NotFoundException('Usuário não encontrado');
+
+    return this.mapper.fromEntity(user);
+  }
 }

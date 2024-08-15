@@ -19,4 +19,7 @@ export abstract class IUserService {
     checkEmail(email: string): Promise<void> {
         throw new Error("Method not implemented.");
     }
+    findByEmail(email: string): Promise<CreateUserResponse> {
+        throw new Error("Method not implemented.");
+    }
 }
