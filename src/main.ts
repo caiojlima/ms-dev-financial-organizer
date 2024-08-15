@@ -15,7 +15,7 @@ async function bootstrap() {
   }))
 
   app.enableCors({
-    origin: '*',
+    origin: process.env.APP_URL,
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     allowedHeaders: 'Content-Type, Authorization',
   });
