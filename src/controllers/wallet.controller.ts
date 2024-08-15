@@ -8,6 +8,7 @@ import { RolesGuard } from "src/guards/admin.guard";
 import { JwtAuthGuard } from "src/guards/jwt.guard";
 import { query } from "express";
 import { WalletQuery } from "./dtos/wallet-query.dto";
+import { AllWallet } from "./dtos/all-wallet.dto";
 
 @ApiTags('Wallet')
 @Controller('wallet')
@@ -44,7 +45,7 @@ export class WalletController {
   @ApiOperation({ summary: 'Obter todas as carteiras' })
   @ApiResponse(GlobalDocs.Wallet.RESPONSE_GET_ALL)
   @ApiResponse(GlobalDocs.FORBIDDEN)
-  async findAll(@Req() { user }: any, @Query() query: WalletQuery ): Promise<CreateWalletResponse[]> {
+  async findAll(@Req() { user }: any, @Query() query: WalletQuery ): Promise<AllWallet> {
     return this.walletService.findAll(user.sub, query);
   }
 

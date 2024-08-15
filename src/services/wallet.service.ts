@@ -7,6 +7,7 @@ import { IWalletService } from "./interfaces/wallet-service.interface";
 import { IWalletMapper } from "src/mappers/interfaces/wallet-mapper.interface";
 import { WalletQuery } from "src/controllers/dtos/wallet-query.dto";
 import { WalletCriteriaBuilder } from "src/builders/wallet-criteria.builder";
+import { AllWallet } from "src/controllers/dtos/all-wallet.dto";
 
 @Injectable()
 export class WalletService implements IWalletService {
@@ -29,11 +30,11 @@ export class WalletService implements IWalletService {
     return this.mapper.fromEntity(newWallet)
   }
 
-  async findAll(userId: number, query?: WalletQuery): Promise<CreateWalletResponse[]> {
+  async findAll(userId: number, query?: WalletQuery): Promise<AllWallet> {
     const walletCriteriaBuilder = new WalletCriteriaBuilder({userId, ...query})
     const where = walletCriteriaBuilder.build();
     const wallets = await this.walletRepository.find({ where, relations: ['user'] });
-    return wallets.map((wallet) => this.mapper.fromEntity(wallet))
+    return this.mapper.fromEntities(wallets)
   }
 
   async findOne(id: number): Promise<CreateWalletResponse> {

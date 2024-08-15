@@ -3,6 +3,7 @@ import { IWalletMapper } from "./interfaces/wallet-mapper.interface";
 import { CreateWalletResponse } from "src/controllers/dtos/create-wallet-response.dto";
 import { forwardRef, Inject, Injectable } from "@nestjs/common";
 import { IUserMapper } from "./interfaces/user-mapper.interface";
+import { AllWallet } from "src/controllers/dtos/all-wallet.dto";
 
 @Injectable()
 export class WalletMapper implements IWalletMapper {
@@ -21,5 +22,12 @@ export class WalletMapper implements IWalletMapper {
         createdAt: wallet.createdAt?.toISOString(),
         updatedAt: wallet.updatedAt.toISOString(),
         };
+    }
+
+    fromEntities(wallets: Wallet[]) : AllWallet {
+        return{
+            entries: wallets.map((wallet) => this.fromEntity(wallet)),
+            total: wallets.reduce((prev, { value }) => prev + Number(value), 0)
+        }
     }
 }
