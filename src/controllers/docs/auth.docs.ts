@@ -28,4 +28,28 @@ export class AuthDocs {
 			},
 		},
     }
+
+	public static readonly REQUEST_RESET_REQUEST = {
+        type: LoginDto,
+		examples: {
+			'application/json': {
+				summary: 'Exemplo de login',
+				value: {
+					email: 'joao@example.com',
+				},
+			},
+		},
+    }
+
+	public static readonly PASSWORD_RESET_REQUEST = {
+        type: LoginDto,
+		examples: {
+			'application/json': {
+				summary: 'Exemplo de login',
+				value: {
+					password: 'SenhaSegura123',
+				},
+			},
+		},
+    }
 }

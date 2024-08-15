@@ -43,8 +43,6 @@ export class UserController {
   @ApiResponse(GlobalDocs.FORBIDDEN)
   @ApiResponse(GlobalDocs.UNAUTHORIZED)
   async findOne(@Param('id') id: number, @Req() { user }: any): Promise<CreateUserResponse> {
-    console.log(user.sub);
-    
     return this.userService.findOne(id, user.sub);
   }
 

@@ -1,25 +1,23 @@
 import { Injectable } from "@nestjs/common";
-import * as mailgun from 'mailgun-js';
+import * as Brevo from '@getbrevo/brevo'
+import { ConfigService } from "@nestjs/config";
 
 @Injectable()
 export class MailerService {
-  private mg: { messages: () => { (): any; new(): any; send: { (arg0: { from: string; to: string; subject: string; text: string; }): any; new(): any; }; }; };
-
-  constructor() {
-    this.mg = mailgun({
-      apiKey: process.env.MAILER_API_KEY,
-      domain: process.env.MAILER_DOMAIN,
-    });
+  constructor(private config: ConfigService) {
   }
+  async sendMail(to: any, subject: string, text: string): Promise<void> {
+    const apiKey = this.config.get('MAILER_API_KEY')
 
-  async sendMail(to: string, subject: string, text: string): Promise<void> {
-    const data = {
-      from: process.env.MAILER_EMAIL,
-      to,
+    const apiInstance = new Brevo.TransactionalEmailsApi()
+    apiInstance.setApiKey(0, apiKey)
+
+    await apiInstance.sendTransacEmail({
+      sender: { email: process.env.MAILER_EMAIL },
+      to: [to],
       subject,
-      text,
-    };
-
-    await this.mg.messages().send(data);
+      htmlContent: `<p> ${text} <p>`,
+    });
+    
   }
 }

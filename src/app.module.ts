@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AuthModule, MailerModule, PasswordResetModule, RedisModule, UserModule, WalletModule } from './modules';
+import { AuthModule, MailerModule, PasswordResetModule, UserModule, WalletModule } from './modules';
 
 @Module({
   imports: [
@@ -21,9 +21,8 @@ import { AuthModule, MailerModule, PasswordResetModule, RedisModule, UserModule,
     UserModule,
     WalletModule,
     AuthModule,
-    RedisModule,
-    MailerModule,
     PasswordResetModule,
+    MailerModule,
   ]
 })
 export class AppModule {}
