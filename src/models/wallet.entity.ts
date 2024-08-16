@@ -14,14 +14,16 @@ export class Wallet {
 
   @Column({ name:'payment_method', type: 'varchar', length: 50 })
   paymentMethod: string;
-
-  @ManyToOne(() => User, user => user.wallets)
-  @JoinColumn({ name: 'user_id' })
-  user: User;
-
+  
   @CreateDateColumn({ name: 'created_at', type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;
-
+  
   @UpdateDateColumn({ name: 'updated_at', type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', onUpdate: 'CURRENT_TIMESTAMP' })
   updatedAt: Date;
+
+  @ManyToOne(() => User, user => user.wallets,{
+    onDelete: 'CASCADE'
+  })
+  @JoinColumn({ name: 'user_id' })
+  user: User;
 }

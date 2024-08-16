@@ -21,6 +21,8 @@ export class User {
   @UpdateDateColumn({ name: 'updated_at', type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', onUpdate: 'CURRENT_TIMESTAMP' })
   updatedAt: Date;
 
-  @OneToMany(() => Wallet, wallet => wallet.user)
+  @OneToMany(() => Wallet, wallet => wallet.user, {
+    cascade: true,
+  })
   wallets: Wallet[];
 }
