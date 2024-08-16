@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Query, Patch } from "@nestjs/common";
+import { Controller, Post, Body, Query, Patch, Req } from "@nestjs/common";
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { PasswordResetService } from "src/services";
 import { GlobalDocs } from "./docs";
@@ -20,10 +20,9 @@ export class PasswordResetController {
   @ApiOperation({ summary: 'Mudança de senha de usuário' })
   @ApiBody(GlobalDocs.Auth.PASSWORD_RESET_REQUEST)
   async resetPassword(
-    @Query('token') token: string,
+    @Req() req: any,
     @Body('password') newPassword: string,
-    
   ): Promise<void> {
-    await this.passwordResetService.resetPassword(token, newPassword);
+    await this.passwordResetService.resetPassword(req.headers.authorization, newPassword);
   }
 }

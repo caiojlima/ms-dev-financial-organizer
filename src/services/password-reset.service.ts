@@ -35,13 +35,14 @@ export class PasswordResetService {
     await this.mailerService.sendMail(
       { email },
       'Pedido de mudança de senha',
-      `Para mudar sua senha clique no link a seguir: ${process.env.APP_URL}/auth/reset-password?token=${token}`
+      `Para mudar sua senha clique no link a seguir: ${process.env.APP_URL}/reset-password?token=${token}`
     );
   }
 
   async resetPassword(token: string, newPassword: string): Promise<void> {
     const tokenKey = `password-reset:${token}`;
     const userId = await this.cacheManager.get(tokenKey);
+    console.log(userId);
     
     if (!userId) throw new BadRequestException('Token inválido ou expirado');
 
