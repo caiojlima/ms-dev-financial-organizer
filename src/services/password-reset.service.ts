@@ -42,7 +42,6 @@ export class PasswordResetService {
   async resetPassword(token: string, newPassword: string): Promise<void> {
     const tokenKey = `password-reset:${token}`;
     const userId = await this.cacheManager.get(tokenKey);
-    console.log(userId);
     
     if (!userId) throw new BadRequestException('Token inválido ou expirado');
 
