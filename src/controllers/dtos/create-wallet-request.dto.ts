@@ -1,6 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { IsString, IsNotEmpty, MinLength, MaxLength, IsNumber, IsDefined, IsInt } from "class-validator";
-import { IsNotZero } from "src/validators/not-zero.validator";
+import { IsNotZero } from "../../validators/not-zero.validator";
 
 export class CreateWalletRequest {
   @ApiProperty({

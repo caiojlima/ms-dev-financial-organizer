@@ -1,11 +1,11 @@
 import { Controller, Post, Body, Get, Param, Put, Delete, HttpCode, HttpStatus, UseGuards, Req } from "@nestjs/common";
 import { ApiOperation, ApiBody, ApiResponse, ApiTags, ApiBearerAuth } from "@nestjs/swagger";
 import { CreateUserRequest, CreateUserResponse } from "./dtos";
-import { IUserService } from "src/services/interfaces/user-service.interface";
+import { IUserService } from "../services/interfaces/user-service.interface";
 import { GlobalDocs } from "./docs";
-import { JwtAuthGuard } from "src/guards/jwt.guard";
-import { RolesGuard } from "src/guards/admin.guard";
-import { Roles } from "src/decorators/roles.decorator";
+import { JwtAuthGuard } from "../guards/jwt.guard";
+import { RolesGuard } from "../guards/admin.guard";
+import { Roles } from "../decorators/roles.decorator";
 
 @ApiTags('Users')
 @Controller('users')

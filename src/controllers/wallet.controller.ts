@@ -1,12 +1,11 @@
 import { Controller, Post, Body, Get, Param, Put, Delete, HttpCode, HttpStatus, UseGuards, Req, Query } from "@nestjs/common";
 import { ApiBearerAuth, ApiBody, ApiOperation, ApiQuery, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { CreateWalletRequest, CreateWalletResponse } from "./dtos";
-import { IWalletService } from "src/services/interfaces/wallet-service.interface";
+import { IWalletService } from "../services/interfaces/wallet-service.interface";
 import { GlobalDocs } from "./docs";
-import { Roles } from "src/decorators/roles.decorator";
-import { RolesGuard } from "src/guards/admin.guard";
-import { JwtAuthGuard } from "src/guards/jwt.guard";
-import { query } from "express";
+import { Roles } from "../decorators/roles.decorator";
+import { RolesGuard } from "../guards/admin.guard";
+import { JwtAuthGuard } from "../guards/jwt.guard";
 import { WalletQuery } from "./dtos/wallet-query.dto";
 import { AllWallet } from "./dtos/all-wallet.dto";
 

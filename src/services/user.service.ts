@@ -2,8 +2,8 @@ import { ConflictException, Injectable, NotFoundException, UnauthorizedException
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { CreateUserRequest, CreateUserResponse } from "src/controllers/dtos";
-import { User } from "src/models";
-import { IUserMapper } from "src/mappers/interfaces/user-mapper.interface";
+import { User } from "../models";
+import { IUserMapper } from "../mappers/interfaces/user-mapper.interface";
 import { IUserService } from "./interfaces/user-service.interface";
 import * as bcrypt from 'bcryptjs';
 

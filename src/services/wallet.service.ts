@@ -2,12 +2,12 @@ import { Injectable, UnauthorizedException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { CreateWalletRequest, CreateWalletResponse } from "src/controllers/dtos";
-import { Wallet, User } from "src/models";
+import { Wallet, User } from "../models";
 import { IWalletService } from "./interfaces/wallet-service.interface";
-import { IWalletMapper } from "src/mappers/interfaces/wallet-mapper.interface";
-import { WalletQuery } from "src/controllers/dtos/wallet-query.dto";
-import { WalletCriteriaBuilder } from "src/builders/wallet-criteria.builder";
-import { AllWallet } from "src/controllers/dtos/all-wallet.dto";
+import { IWalletMapper } from "../mappers/interfaces/wallet-mapper.interface";
+import { WalletQuery } from "../controllers/dtos/wallet-query.dto";
+import { WalletCriteriaBuilder } from "../builders/wallet-criteria.builder";
+import { AllWallet } from "../controllers/dtos/all-wallet.dto";
 
 @Injectable()
 export class WalletService implements IWalletService {

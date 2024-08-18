@@ -1,6 +1,6 @@
 import { Controller, Post, Body, Query, Patch, Req } from "@nestjs/common";
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
-import { PasswordResetService } from "src/services";
+import { PasswordResetService } from "../services";
 import { GlobalDocs } from "./docs";
 
 @ApiTags('Auth')

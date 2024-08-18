@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException, BadRequestException, Inject } from "@nestjs/common";
 import { randomBytes } from "crypto";
 import { InjectRepository } from "@nestjs/typeorm";
-import { User } from "src/models";
+import { User } from "../models";
 import { Repository } from "typeorm";
 import * as bcrypt from 'bcryptjs';
 import { CACHE_MANAGER } from "@nestjs/cache-manager";
