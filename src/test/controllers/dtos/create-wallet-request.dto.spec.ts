@@ -21,7 +21,7 @@ describe('CreateWalletRequest', () => {
     const errors = await validate(dto);
     expect(errors.length).toBeGreaterThan(0);
     expect(errors[0].property).toBe('description');
-    expect(errors[0].constraints.isNotEmpty).toBe('A descrição não pode ser vazia');
+    expect(errors[0].constraints?.isNotEmpty).toBe('A descrição não pode ser vazia');
   });
 
   it('should validate a CreateWalletRequest with invalid value (zero)', async () => {
@@ -33,7 +33,7 @@ describe('CreateWalletRequest', () => {
     const errors = await validate(dto);
     expect(errors.length).toBeGreaterThan(0);
     expect(errors[0].property).toBe('value');
-    expect(errors[0].constraints.isNotZero).toBe('O valor não pode ser 0');
+    expect(errors[0].constraints?.isNotZero).toBe('O valor não pode ser 0');
   });
 
   it('should validate a CreateWalletRequest with invalid payment method', async () => {
@@ -45,7 +45,7 @@ describe('CreateWalletRequest', () => {
     const errors = await validate(dto);
     expect(errors.length).toBeGreaterThan(0);
     expect(errors[0].property).toBe('paymentMethod');
-    expect(errors[0].constraints.isNotEmpty).toBe('O método de pagamento não pode ser vazio');
+    expect(errors[0].constraints?.isNotEmpty).toBe('O método de pagamento não pode ser vazio');
   });
 
   it('should validate a CreateWalletRequest with too short description', async () => {
@@ -57,7 +57,7 @@ describe('CreateWalletRequest', () => {
     const errors = await validate(dto);
     expect(errors.length).toBeGreaterThan(0);
     expect(errors[0].property).toBe('description');
-    expect(errors[0].constraints.minLength).toBe('A descrição deve ter pelo menos 5 caracteres');
+    expect(errors[0].constraints?.minLength).toBe('A descrição deve ter pelo menos 5 caracteres');
   });
 
   it('should validate a CreateWalletRequest with too long payment method', async () => {
@@ -69,6 +69,6 @@ describe('CreateWalletRequest', () => {
     const errors = await validate(dto);
     expect(errors.length).toBeGreaterThan(0);
     expect(errors[0].property).toBe('paymentMethod');
-    expect(errors[0].constraints.maxLength).toBe('O método de pagamento pode ter no máximo 50 caracteres');
+    expect(errors[0].constraints?.maxLength).toBe('O método de pagamento pode ter no máximo 50 caracteres');
   });
 });

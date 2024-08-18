@@ -1,5 +1,5 @@
 import { Module } from "@nestjs/common";
-import { MailerService } from "src/services";
+import { MailerService } from "../services";
 
 @Module({
     providers: [MailerService],

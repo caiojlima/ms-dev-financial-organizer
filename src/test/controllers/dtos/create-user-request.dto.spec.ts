@@ -21,7 +21,7 @@ describe('CreateUserRequest', () => {
     const errors = await validate(dto);
     expect(errors.length).toBeGreaterThan(0);
     expect(errors[0].property).toBe('name');
-    expect(errors[0].constraints.isNotEmpty).toBe('O nome não pode ser vazio');
+    expect(errors[0].constraints?.isNotEmpty).toBe('O nome não pode ser vazio');
   });
 
   it('should validate a CreateUserRequest with invalid email', async () => {
@@ -33,7 +33,7 @@ describe('CreateUserRequest', () => {
     const errors = await validate(dto);
     expect(errors.length).toBeGreaterThan(0);
     expect(errors[0].property).toBe('email');
-    expect(errors[0].constraints.isEmail).toBe('O e-mail deve ser um endereço de e-mail válido');
+    expect(errors[0].constraints?.isEmail).toBe('O e-mail deve ser um endereço de e-mail válido');
   });
 
   it('should validate a CreateUserRequest with short password', async () => {
@@ -45,7 +45,7 @@ describe('CreateUserRequest', () => {
     const errors = await validate(dto);
     expect(errors.length).toBeGreaterThan(0);
     expect(errors[0].property).toBe('password');
-    expect(errors[0].constraints.minLength).toBe('A senha deve ter pelo menos 8 caracteres');
+    expect(errors[0].constraints?.minLength).toBe('A senha deve ter pelo menos 8 caracteres');
   });
 
   it('should validate a CreateUserRequest with long name', async () => {
@@ -57,6 +57,6 @@ describe('CreateUserRequest', () => {
     const errors = await validate(dto);
     expect(errors.length).toBeGreaterThan(0);
     expect(errors[0].property).toBe('name');
-    expect(errors[0].constraints.maxLength).toBe('O nome pode ter no máximo 50 caracteres');
+    expect(errors[0].constraints?.maxLength).toBe('O nome pode ter no máximo 50 caracteres');
   });
 });

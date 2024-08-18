@@ -1,6 +1,6 @@
 import { Module } from "@nestjs/common";
-import { PasswordResetController } from "src/controllers/password-reset.controller";
-import { PasswordResetService, MailerService } from "src/services";
+import { PasswordResetController } from "../controllers/password-reset.controller";
+import { PasswordResetService, MailerService } from "../services";
 import { MailerModule, UserModule } from ".";
 import { CacheModule } from "@nestjs/cache-manager";
 

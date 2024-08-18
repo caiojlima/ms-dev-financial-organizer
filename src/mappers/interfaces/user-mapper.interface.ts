@@ -3,7 +3,5 @@ import { User } from "src/models/user.entity";
 import { IMapper } from "./mapper.interface";
 
 export abstract class IUserMapper implements IMapper<User, CreateUserResponse> {
-  fromEntity(entity: User): CreateUserResponse {
-    throw new Error("Method not implemented.");
-  }
+  abstract fromEntity(entity: User): CreateUserResponse
 }
