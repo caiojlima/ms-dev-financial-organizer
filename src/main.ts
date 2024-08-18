@@ -23,7 +23,7 @@ async function bootstrap() {
   const config = new DocumentBuilder()
     .setTitle('Financial Organizer')
     .setDescription('Serviço de Controle de Carteira e Finanças')
-    .setVersion('1.0')
+    .setVersion('1.4.1')
     .addTag('Users')
     .addTag('Wallet')
     .addTag('Auth')
