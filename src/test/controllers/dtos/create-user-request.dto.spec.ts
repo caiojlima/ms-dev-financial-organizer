@@ -1,5 +1,5 @@
 import { validate } from 'class-validator';
-import { CreateUserRequest } from '../../../controllers/dtos/create-user-request.dto'; // Ajuste o caminho conforme necessário
+import { CreateUserRequest } from '../../../controllers/dtos/create-user-request.dto';
 
 describe('CreateUserRequest', () => {
   it('should validate a valid CreateUserRequest', async () => {

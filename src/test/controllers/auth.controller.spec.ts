@@ -1,7 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AuthService } from '../../services';
 import { AuthController } from '../../controllers/auth.controller'
-import { LocalAuthGuard } from '../../guards/local.guard';
 
 describe('AuthController', () => {
     let authController: AuthController;

@@ -1,5 +1,5 @@
 import { validate } from 'class-validator';
-import { CreateWalletRequest } from '../../../controllers/dtos/create-wallet-request.dto'; // Ajuste o caminho conforme necessário
+import { CreateWalletRequest } from '../../../controllers/dtos/create-wallet-request.dto';
 
 describe('CreateWalletRequest', () => {
   it('should validate a valid CreateWalletRequest', async () => {

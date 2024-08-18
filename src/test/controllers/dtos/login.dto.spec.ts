@@ -1,4 +1,4 @@
-import { LoginDto } from '../../../controllers/dtos/login.dto'; // Ajuste o caminho conforme necessário
+import { LoginDto } from '../../../controllers/dtos/login.dto';
 import { validate } from 'class-validator';
 
 describe('LoginDto', () => {
@@ -8,7 +8,7 @@ describe('LoginDto', () => {
     dto.password = 'MinhaSenha123';
 
     const errors = await validate(dto);
-    expect(errors.length).toBe(0); // Deve ser 0 se o DTO for válido
+    expect(errors.length).toBe(0);
   });
 
   it('should fail validation for missing email', async () => {

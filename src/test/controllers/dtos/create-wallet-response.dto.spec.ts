@@ -1,4 +1,4 @@
-import { CreateWalletResponse } from '../../../controllers/dtos/create-wallet-response.dto'; // Ajuste o caminho conforme necessário
+import { CreateWalletResponse } from '../../../controllers/dtos/create-wallet-response.dto'; 
 
 describe('CreateWalletResponse', () => {
   it('should create a valid CreateWalletResponse', () => {
