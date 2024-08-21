@@ -1,5 +1,5 @@
 import { JwtService } from "@nestjs/jwt";
-import { Injectable } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { User } from "../models";
 import { Repository } from "typeorm";
@@ -16,6 +16,9 @@ export class AuthService {
 
   async validateUser(email: string, password: string): Promise<CreateUserResponse | null> {
     const user = await this.userRepository.findOne({ where: { email } });
+    
+    if (!user) throw new NotFoundException("Usuário não encontrado")
+    
     const isValid = await bcrypt.compare(password, user.password)
     if (user && isValid) {
       const { password, ...result } = user;
