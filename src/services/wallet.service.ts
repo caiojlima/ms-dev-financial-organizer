@@ -48,8 +48,12 @@ export class WalletService implements IWalletService {
     const where = walletCriteriaBuilder.build();
     const wallets = await this.walletRepository.find({
       where,
+      order: {
+        createdAt: 'DESC',
+      },
       relations: ['user'],
     });
+
     return this.mapper.fromEntities(wallets);
   }
 
