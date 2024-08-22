@@ -1,22 +1,22 @@
-import { Type } from "class-transformer";
-import { IsOptional, IsDateString, IsInt, Min } from "class-validator";
+import { Type } from 'class-transformer';
+import { IsOptional, IsDateString, IsInt, Min } from 'class-validator';
 
 export class WalletQuery {
-    @IsOptional()
-    @IsDateString({}, { message: 'start deve ser uma data válida' })
-    start?: string;
-  
-    @IsOptional()
-    @IsDateString({}, { message: 'end deve ser uma data válida' })
-    end?: string;
-  
-    @IsOptional()
-    @IsInt({ message: 'page deve ser um número inteiro' })
-    @Min(1, { message: 'page deve ser pelo menos 1' })
-    page?: number = 1;
-  
-    @IsOptional()
-    @IsInt({ message: 'limit deve ser um número inteiro' })
-    @Min(1, { message: 'limit deve ser pelo menos 1' })
-    limit?: number = 10;
-  }
+  @IsOptional()
+  @IsDateString({}, { message: 'start deve ser uma data válida' })
+  start?: string;
+
+  @IsOptional()
+  @IsDateString({}, { message: 'end deve ser uma data válida' })
+  end?: string;
+
+  @IsOptional()
+  @IsInt({ message: 'page deve ser um número inteiro' })
+  @Min(1, { message: 'page deve ser pelo menos 1' })
+  page?: number = 1;
+
+  @IsOptional()
+  @IsInt({ message: 'limit deve ser um número inteiro' })
+  @Min(1, { message: 'limit deve ser pelo menos 1' })
+  limit?: number = 10;
+}

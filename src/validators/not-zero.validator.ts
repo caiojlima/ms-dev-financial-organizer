@@ -1,4 +1,9 @@
-import { registerDecorator, ValidationOptions, ValidatorConstraint, ValidatorConstraintInterface } from 'class-validator';
+import {
+  registerDecorator,
+  ValidationOptions,
+  ValidatorConstraint,
+  ValidatorConstraintInterface,
+} from 'class-validator';
 
 @ValidatorConstraint({ name: 'isNotZero', async: false })
 export class IsNotZeroConstraint implements ValidatorConstraintInterface {

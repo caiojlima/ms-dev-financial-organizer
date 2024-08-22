@@ -25,23 +25,23 @@ describe('UserMapper', () => {
   describe('fromEntity', () => {
     it('should map a User entity to CreateUserResponse', () => {
       const user: User = {
-          id: 1,
-          name: 'John Doe',
-          email: 'john.doe@example.com',
-          createdAt: new Date('2024-01-01T00:00:00Z'),
-          updatedAt: new Date('2024-01-02T00:00:00Z'),
-          wallets: [
-              {
-                  id: 1,
-                  description: 'Personal Wallet',
-                  value: 100,
-                  paymentMethod: 'Credit Card',
-                  createdAt: new Date('2024-01-01T00:00:00Z'),
-                  updatedAt: new Date('2024-01-02T00:00:00Z'),
-                  user: new User
-              },
-          ],
-          password: ''
+        id: 1,
+        name: 'John Doe',
+        email: 'john.doe@example.com',
+        createdAt: new Date('2024-01-01T00:00:00Z'),
+        updatedAt: new Date('2024-01-02T00:00:00Z'),
+        wallets: [
+          {
+            id: 1,
+            description: 'Personal Wallet',
+            value: 100,
+            paymentMethod: 'Credit Card',
+            createdAt: new Date('2024-01-01T00:00:00Z'),
+            updatedAt: new Date('2024-01-02T00:00:00Z'),
+            user: new User(),
+          },
+        ],
+        password: '',
       };
 
       const expectedResponse: CreateUserResponse = {
@@ -50,13 +50,13 @@ describe('UserMapper', () => {
         email: 'john.doe@example.com',
         wallet: [
           {
-              id: 1,
-              description: 'Personal Wallet',
-              value: 100,
-              paymentMethod: 'Credit Card',
-              createdAt: '2024-01-01T00:00:00.000Z',
-              updatedAt: '2024-01-02T00:00:00.000Z',
-              user: new CreateUserResponse
+            id: 1,
+            description: 'Personal Wallet',
+            value: 100,
+            paymentMethod: 'Credit Card',
+            createdAt: '2024-01-01T00:00:00.000Z',
+            updatedAt: '2024-01-02T00:00:00.000Z',
+            user: new CreateUserResponse(),
           },
         ],
         createdAt: '2024-01-01T00:00:00.000Z',

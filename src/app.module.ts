@@ -1,13 +1,19 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AuthModule, MailerModule, PasswordResetModule, UserModule, WalletModule } from './modules';
+import {
+  AuthModule,
+  MailerModule,
+  PasswordResetModule,
+  UserModule,
+  WalletModule,
+} from './modules';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: '.env'
+      envFilePath: '.env',
     }),
     TypeOrmModule.forRoot({
       type: process.env.DB_TYPE as any,
@@ -23,6 +29,6 @@ import { AuthModule, MailerModule, PasswordResetModule, UserModule, WalletModule
     AuthModule,
     PasswordResetModule,
     MailerModule,
-  ]
+  ],
 })
 export class AppModule {}

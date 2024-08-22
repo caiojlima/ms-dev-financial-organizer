@@ -1,13 +1,33 @@
-import { Controller, Post, Body, Get, Param, Put, Delete, HttpCode, HttpStatus, UseGuards, Req, Query } from "@nestjs/common";
-import { ApiBearerAuth, ApiBody, ApiOperation, ApiQuery, ApiResponse, ApiTags } from "@nestjs/swagger";
-import { CreateWalletRequest, CreateWalletResponse } from "./dtos";
-import { IWalletService } from "../services/interfaces/wallet-service.interface";
-import { GlobalDocs } from "./docs";
-import { Roles } from "../decorators/roles.decorator";
-import { RolesGuard } from "../guards/admin.guard";
-import { JwtAuthGuard } from "../guards/jwt.guard";
-import { WalletQuery } from "./dtos/wallet-query.dto";
-import { AllWallet } from "./dtos/all-wallet.dto";
+import {
+  Controller,
+  Post,
+  Body,
+  Get,
+  Param,
+  Put,
+  Delete,
+  HttpCode,
+  HttpStatus,
+  UseGuards,
+  Req,
+  Query,
+} from '@nestjs/common';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiOperation,
+  ApiQuery,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
+import { CreateWalletRequest, CreateWalletResponse } from './dtos';
+import { IWalletService } from '../services/interfaces/wallet-service.interface';
+import { GlobalDocs } from './docs';
+import { Roles } from '../decorators/roles.decorator';
+import { RolesGuard } from '../guards/admin.guard';
+import { JwtAuthGuard } from '../guards/jwt.guard';
+import { WalletQuery } from './dtos/wallet-query.dto';
+import { AllWallet } from './dtos/all-wallet.dto';
 
 @ApiTags('Wallet')
 @Controller('wallet')
@@ -22,7 +42,10 @@ export class WalletController {
   @ApiResponse(GlobalDocs.Wallet.RESPONSE_POST)
   @ApiResponse(GlobalDocs.FORBIDDEN)
   @ApiResponse(GlobalDocs.UNAUTHORIZED)
-  async create(@Body() walletDto: CreateWalletRequest, @Req() { user }: any): Promise<CreateWalletResponse> {
+  async create(
+    @Body() walletDto: CreateWalletRequest,
+    @Req() { user }: any,
+  ): Promise<CreateWalletResponse> {
     return this.walletService.create(walletDto, user.sub);
   }
 
@@ -33,18 +56,21 @@ export class WalletController {
     name: 'start',
     required: false,
     type: String,
-    description: 'Data de início para filtrar as carteiras'
+    description: 'Data de início para filtrar as carteiras',
   })
   @ApiQuery({
     name: 'end',
     required: false,
     type: String,
-    description: 'Data de término para filtrar as carteiras'
+    description: 'Data de término para filtrar as carteiras',
   })
   @ApiOperation({ summary: 'Obter todas as carteiras' })
   @ApiResponse(GlobalDocs.Wallet.RESPONSE_GET_ALL)
   @ApiResponse(GlobalDocs.FORBIDDEN)
-  async findAll(@Req() { user }: any, @Query() query: WalletQuery ): Promise<AllWallet> {
+  async findAll(
+    @Req() { user }: any,
+    @Query() query: WalletQuery,
+  ): Promise<AllWallet> {
     return this.walletService.findAll(user.sub, query);
   }
 
@@ -69,7 +95,11 @@ export class WalletController {
   @ApiResponse(GlobalDocs.NOT_FOUND)
   @ApiResponse(GlobalDocs.FORBIDDEN)
   @ApiResponse(GlobalDocs.UNAUTHORIZED)
-  async update(@Param('id') id: number, @Body() walletDto: CreateWalletRequest, @Req() { user }: any): Promise<CreateWalletResponse> {
+  async update(
+    @Param('id') id: number,
+    @Body() walletDto: CreateWalletRequest,
+    @Req() { user }: any,
+  ): Promise<CreateWalletResponse> {
     return this.walletService.update(id, user.sub, walletDto);
   }
 

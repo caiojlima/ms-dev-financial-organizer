@@ -1,7 +1,7 @@
-import { Controller, Post, Body, Query, Patch, Req } from "@nestjs/common";
-import { ApiBody, ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
-import { PasswordResetService } from "../services";
-import { GlobalDocs } from "./docs";
+import { Controller, Post, Body, Query, Patch, Req } from '@nestjs/common';
+import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { PasswordResetService } from '../services';
+import { GlobalDocs } from './docs';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -23,6 +23,9 @@ export class PasswordResetController {
     @Req() req: any,
     @Body('password') newPassword: string,
   ): Promise<void> {
-    await this.passwordResetService.resetPassword(req.headers.authorization, newPassword);
+    await this.passwordResetService.resetPassword(
+      req.headers.authorization,
+      newPassword,
+    );
   }
 }

@@ -1,6 +1,12 @@
-import { ApiProperty } from "@nestjs/swagger";
-import { IsString, IsNotEmpty, MinLength, MaxLength, IsNumber, IsDefined, IsInt } from "class-validator";
-import { IsNotZero } from "../../validators/not-zero.validator";
+import { ApiProperty } from '@nestjs/swagger';
+import {
+  IsString,
+  IsNotEmpty,
+  MinLength,
+  MaxLength,
+  IsNumber,
+} from 'class-validator';
+import { IsNotZero } from '../../validators/not-zero.validator';
 
 export class CreateWalletRequest {
   @ApiProperty({
@@ -27,7 +33,11 @@ export class CreateWalletRequest {
   })
   @IsString({ message: 'O método de pagamento deve ser uma string' })
   @IsNotEmpty({ message: 'O método de pagamento não pode ser vazio' })
-  @MinLength(3, { message: 'O método de pagamento deve ter pelo menos 3 caracteres' })
-  @MaxLength(50, { message: 'O método de pagamento pode ter no máximo 50 caracteres' })
+  @MinLength(3, {
+    message: 'O método de pagamento deve ter pelo menos 3 caracteres',
+  })
+  @MaxLength(50, {
+    message: 'O método de pagamento pode ter no máximo 50 caracteres',
+  })
   paymentMethod: string;
 }

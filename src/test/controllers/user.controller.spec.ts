@@ -14,10 +14,29 @@ describe('UserController', () => {
         {
           provide: IUserService,
           useValue: {
-            create: jest.fn().mockResolvedValue({ id: 1, name: 'Test User' } as CreateUserResponse),
-            findAll: jest.fn().mockResolvedValue([{ id: 1, name: 'Test User' }] as CreateUserResponse[]),
-            findOne: jest.fn().mockResolvedValue({ id: 1, name: 'Test User' } as CreateUserResponse),
-            update: jest.fn().mockResolvedValue({ id: 1, name: 'Updated User' } as CreateUserResponse),
+            create: jest
+              .fn()
+              .mockResolvedValue({
+                id: 1,
+                name: 'Test User',
+              } as CreateUserResponse),
+            findAll: jest
+              .fn()
+              .mockResolvedValue([
+                { id: 1, name: 'Test User' },
+              ] as CreateUserResponse[]),
+            findOne: jest
+              .fn()
+              .mockResolvedValue({
+                id: 1,
+                name: 'Test User',
+              } as CreateUserResponse),
+            update: jest
+              .fn()
+              .mockResolvedValue({
+                id: 1,
+                name: 'Updated User',
+              } as CreateUserResponse),
             remove: jest.fn().mockResolvedValue(undefined),
             checkEmail: jest.fn().mockResolvedValue(undefined),
           },
@@ -36,8 +55,9 @@ describe('UserController', () => {
   describe('create', () => {
     it('should create a user', async () => {
       const userDto: CreateUserRequest = {
-          name: 'Test User', email: 'test@example.com',
-          password: ''
+        name: 'Test User',
+        email: 'test@example.com',
+        password: '',
       };
       const result = await userController.create(userDto);
       expect(result).toEqual({ id: 1, name: 'Test User' });
@@ -65,8 +85,9 @@ describe('UserController', () => {
   describe('update', () => {
     it('should update a user by id', async () => {
       const userDto: CreateUserRequest = {
-          name: 'Updated User', email: 'updated@example.com',
-          password: ''
+        name: 'Updated User',
+        email: 'updated@example.com',
+        password: '',
       };
       const result = await userController.update(1, userDto);
       expect(result).toEqual({ id: 1, name: 'Updated User' });

@@ -1,11 +1,29 @@
-import { Controller, Post, Body, Get, Param, Put, Delete, HttpCode, HttpStatus, UseGuards, Req } from "@nestjs/common";
-import { ApiOperation, ApiBody, ApiResponse, ApiTags, ApiBearerAuth } from "@nestjs/swagger";
-import { CreateUserRequest, CreateUserResponse } from "./dtos";
-import { IUserService } from "../services/interfaces/user-service.interface";
-import { GlobalDocs } from "./docs";
-import { JwtAuthGuard } from "../guards/jwt.guard";
-import { RolesGuard } from "../guards/admin.guard";
-import { Roles } from "../decorators/roles.decorator";
+import {
+  Controller,
+  Post,
+  Body,
+  Get,
+  Param,
+  Put,
+  Delete,
+  HttpCode,
+  HttpStatus,
+  UseGuards,
+  Req,
+} from '@nestjs/common';
+import {
+  ApiOperation,
+  ApiBody,
+  ApiResponse,
+  ApiTags,
+  ApiBearerAuth,
+} from '@nestjs/swagger';
+import { CreateUserRequest, CreateUserResponse } from './dtos';
+import { IUserService } from '../services/interfaces/user-service.interface';
+import { GlobalDocs } from './docs';
+import { JwtAuthGuard } from '../guards/jwt.guard';
+import { RolesGuard } from '../guards/admin.guard';
+import { Roles } from '../decorators/roles.decorator';
 
 @ApiTags('Users')
 @Controller('users')
@@ -19,7 +37,9 @@ export class UserController {
   @ApiResponse(GlobalDocs.User.RESPONSE_POST)
   @ApiResponse(GlobalDocs.FORBIDDEN)
   @ApiResponse(GlobalDocs.CONFLICT)
-  async create(@Body() userDto: CreateUserRequest): Promise<CreateUserResponse> {
+  async create(
+    @Body() userDto: CreateUserRequest,
+  ): Promise<CreateUserResponse> {
     return this.userService.create(userDto);
   }
 
@@ -42,7 +62,10 @@ export class UserController {
   @ApiResponse(GlobalDocs.NOT_FOUND)
   @ApiResponse(GlobalDocs.FORBIDDEN)
   @ApiResponse(GlobalDocs.UNAUTHORIZED)
-  async findOne(@Param('id') id: number, @Req() { user }: any): Promise<CreateUserResponse> {
+  async findOne(
+    @Param('id') id: number,
+    @Req() { user }: any,
+  ): Promise<CreateUserResponse> {
     return this.userService.findOne(id, user.sub);
   }
 
@@ -55,7 +78,10 @@ export class UserController {
   @ApiResponse(GlobalDocs.NOT_FOUND)
   @ApiResponse(GlobalDocs.FORBIDDEN)
   @ApiResponse(GlobalDocs.UNAUTHORIZED)
-  async update(@Param('id') id: number, @Body() userDto: CreateUserRequest): Promise<CreateUserResponse> {
+  async update(
+    @Param('id') id: number,
+    @Body() userDto: CreateUserRequest,
+  ): Promise<CreateUserResponse> {
     return this.userService.update(id, userDto);
   }
 

@@ -1,10 +1,10 @@
-import { JwtService } from "@nestjs/jwt";
-import { Injectable, NotFoundException } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
-import { User } from "../models";
-import { Repository } from "typeorm";
+import { JwtService } from '@nestjs/jwt';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { User } from '../models';
+import { Repository } from 'typeorm';
 import * as bcrypt from 'bcryptjs';
-import { CreateUserResponse } from "src/controllers/dtos";
+import { CreateUserResponse } from 'src/controllers/dtos';
 
 @Injectable()
 export class AuthService {
@@ -14,12 +14,15 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async validateUser(email: string, password: string): Promise<CreateUserResponse | null> {
+  async validateUser(
+    email: string,
+    password: string,
+  ): Promise<CreateUserResponse | null> {
     const user = await this.userRepository.findOne({ where: { email } });
-    
-    if (!user) throw new NotFoundException("Usuário não encontrado")
-    
-    const isValid = await bcrypt.compare(password, user.password)
+
+    if (!user) throw new NotFoundException('Usuário não encontrado');
+
+    const isValid = await bcrypt.compare(password, user.password);
     if (user && isValid) {
       const { password, ...result } = user;
 
@@ -34,7 +37,7 @@ export class AuthService {
       sub: user.id,
       email: user.email,
       name: user.name,
-      role: user.email === process.env.ADMIN_EMAIL ? 'admin' : 'user'
+      role: user.email === process.env.ADMIN_EMAIL ? 'admin' : 'user',
     };
 
     return {

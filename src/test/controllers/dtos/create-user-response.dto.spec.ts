@@ -10,8 +10,12 @@ describe('CreateUserResponse', () => {
         value: 150.75,
         paymentMethod: 'Cartão de crédito',
         user: {
-            id: 1, name: 'a', email: 'a@a.com', createdAt: new Date().toISOString(), updatedAt: new Date().toISOString(),
-            wallet: []
+          id: 1,
+          name: 'a',
+          email: 'a@a.com',
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString(),
+          wallet: [],
         },
         createdAt: '2024-08-13T10:00:00Z',
         updatedAt: '2024-08-13T10:00:00Z',
@@ -19,11 +23,15 @@ describe('CreateUserResponse', () => {
       {
         id: 2,
         description: 'Carteira de viagem',
-        value: 500.00,
+        value: 500.0,
         paymentMethod: 'Dinheiro',
         user: {
-            id: 1, name: 'a', email: 'a@a.com', createdAt: new Date().toISOString(), updatedAt: new Date().toISOString(),
-            wallet: []
+          id: 1,
+          name: 'a',
+          email: 'a@a.com',
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString(),
+          wallet: [],
         },
         createdAt: '2024-08-14T10:00:00Z',
         updatedAt: '2024-08-14T10:00:00Z',

@@ -10,7 +10,7 @@ describe('WalletQuery', () => {
     query.limit = 10;
 
     const errors = await validate(query);
-    expect(errors.length).toBe(0); 
+    expect(errors.length).toBe(0);
   });
 
   it('should fail validation for invalid start date', async () => {
