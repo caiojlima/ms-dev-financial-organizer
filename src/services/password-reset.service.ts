@@ -38,11 +38,6 @@ export class PasswordResetService {
       user.id.toString(),
       this.TOKEN_EXPIRATION_TIME,
     );
-    await this.cacheManager.set(
-      tokenKey,
-      user.id.toString(),
-      this.TOKEN_EXPIRATION_TIME,
-    );
 
     await this.mailerService.sendMail(
       { email },
