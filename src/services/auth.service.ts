@@ -37,7 +37,7 @@ export class AuthService {
       sub: user.id,
       email: user.email,
       name: user.name,
-      role: user.email === process.env.ADMIN_EMAIL ? 'admin' : 'user',
+      role: user.role,
     };
 
     return {

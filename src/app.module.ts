@@ -8,6 +8,7 @@ import {
   UserModule,
   WalletModule,
 } from './modules';
+import { InventoryModule } from './modules/inventory.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import {
     AuthModule,
     PasswordResetModule,
     MailerModule,
+    InventoryModule,
   ],
 })
 export class AppModule {}

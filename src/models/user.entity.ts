@@ -7,6 +7,14 @@ import {
   OneToMany,
 } from 'typeorm';
 import { Wallet } from './wallet.entity';
+import { InventoryItem } from './inventory-item.entity';
+
+export enum Role {
+  USER = 'user',
+  ADMIN = 'admin',
+  ESTOQUE = 'estoque',
+}
+
 
 @Entity('users')
 export class User {
@@ -21,6 +29,9 @@ export class User {
 
   @Column({ type: 'varchar', length: 255 })
   password: string;
+
+  @Column({ type: 'enum', enum: Role, default: Role.USER })
+  role: Role;
 
   @CreateDateColumn({
     name: 'created_at',
@@ -41,4 +52,9 @@ export class User {
     cascade: true,
   })
   wallets: Wallet[];
+
+  @OneToMany(() => InventoryItem, (item) => item.user, {
+    cascade: true,
+  })
+  inventoryItems: InventoryItem[]; 
 }

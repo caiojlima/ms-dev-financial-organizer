@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { CreateWalletResponse } from './create-wallet-response.dto';
+import { Role } from 'src/models';
 
 export class CreateUserResponse {
   @ApiProperty({
@@ -44,6 +45,13 @@ export class CreateUserResponse {
     ],
   })
   wallet: CreateWalletResponse[];
+
+  @ApiProperty({
+    description: 'O papel do usuário no sistema',
+    enum: Role,
+    example: Role.USER,
+  })
+  role: Role;
 
   @ApiProperty({
     description: 'A data em que o usuário foi criado',

@@ -21,6 +21,7 @@ export class UserMapper implements IUserMapper {
       wallet: user.wallets?.map((wallet) =>
         this.walletMapper.fromEntity(wallet),
       ),
+      role: user.role,
       createdAt: user.createdAt?.toISOString(),
       updatedAt: user.updatedAt?.toISOString(),
     };
